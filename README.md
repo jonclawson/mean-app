@@ -8,6 +8,12 @@
 - npm start
 
 ### Start Server:
+
+You will need to install Imagemagick for the thumbnailing to work
+
+https://www.imagemagick.org/script/download.php
+
+
 - cd server
 - npm install
 - node server.js
@@ -18,6 +24,7 @@
 - User Authentication,
 - User Registration,
 - User Management,
+- File uploads with image thumbnailing
 - Content Management,
 - Custom Fields,
 - Custom Content,

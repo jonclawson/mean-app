@@ -44,4 +44,5 @@ typings
 # Generated files
 client/app/**/*.js
 client/app/**/*.js.map
-server/uploads/*
+server/uploads/**/*
+server/thumbnails/**/*

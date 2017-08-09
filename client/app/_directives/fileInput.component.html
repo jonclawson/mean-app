@@ -1,0 +1,5 @@
+<label for="fileInput">
+    <input id="fileInput" class="hidden" name="file" type="file" (change)="onChange($event)"/>
+    <img *ngIf="fileOptions" [src]="blob" width="{{fileOptions.width}}" />
+    <img *ngIf="!fileOptions" [src]="blob"  />
+</label>

@@ -1,0 +1,5 @@
+<div *ngIf="content">
+    <div >{{content.name}} <a [routerLink]="'/content/edit/'+content._id" class="fa-pencil">edit</a></div>
+    <div >{{content.description}}</div>
+    <viewApi [view]="content" ></viewApi>
+</div>

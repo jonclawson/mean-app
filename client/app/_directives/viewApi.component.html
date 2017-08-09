@@ -1,0 +1,33 @@
+<div *ngIf="view" class="viewApi" >
+    <span class="form-group" *ngFor="let field of view.fields">
+        <span [ngSwitch]="field.type" >
+            <label *ngIf="field.type!='checkbox'">{{field.title}}</label>
+            <div *ngSwitchCase="'text'">
+                {{field.value}}
+            </div>
+            <div *ngSwitchCase="'textarea'">
+                {{field.value}}
+            </div>
+            <div *ngSwitchCase="'number'">
+                 {{field.value}}
+            </div>
+            <div  *ngSwitchCase="'checkbox'">
+                 {{field.value}}
+            </div>
+            <div *ngSwitchCase="'radio'">
+                {{field.value}}
+            </div>
+            <div *ngSwitchCase="'select'" class="select-wrap">
+                     {{field.value}}
+            </div>
+            <div *ngSwitchCase="'file'">
+                 <file-input [formApiField]="field" [fileOptions]="" [fileId]="field.value"  (fileChange)="setFile($event)"></file-input>
+
+            </div>
+            <div *ngSwitchCase="'form'">
+                <!--<formApi [formId]="field.value" showSubmit="Save" (formSubmit)="saveContent($event)" ></formApi>-->
+                <contentList format="fields" filterId="form" [filterValue]="field.value"></contentList>
+            </div>
+        </span>
+    </span>
+</div>

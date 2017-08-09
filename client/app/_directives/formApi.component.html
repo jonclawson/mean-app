@@ -1,0 +1,77 @@
+<div *ngIf="form" class="formApi" >
+    <span class="form-group" *ngFor="let field of form.fields">
+        <span [ngSwitch]="field.type" >
+            <div *ngIf="formEdit"><span (click)="removeField(field)" class="glyphicon glyphicon-remove pull-right"></span></div>
+            <label *ngIf="field.type!='checkbox'">{{field.title}}</label>
+            <span *ngSwitchCase="'text'">
+                <input type="text" class="form-control"
+                       name="{{field.name}}"
+                       [(ngModel)]="field.value"
+                       #name="ngModel"
+                       (change)="onChange($event)" />
+            </span>
+            <span *ngSwitchCase="'textarea'">
+                <textarea type="text" class="form-control"
+                       name="{{field.name}}"
+                       [(ngModel)]="field.value"
+                       #name="ngModel"
+                       (change)="onChange($event)" ></textarea>
+            </span>
+            <span *ngSwitchCase="'number'">
+                <input type="number" class="form-control"
+                       name="{{field.name}}"
+                       [(ngModel)]="field.value"
+                       #name="ngModel"
+                       (change)="onChange($event)" />
+            </span>
+            <span  *ngSwitchCase="'checkbox'">
+                <label class="checkbox-inline" >
+                    <input type="checkbox" class=""
+                           name="{{field.name}}"
+                           value="{{field.title}}"
+                           [(ngModel)]="field.value"
+                           #name="ngModel"
+                           (change)="onChange($event)" />
+                        {{field.title}}
+                </label>
+            </span>
+            <span *ngSwitchCase="'radio'">
+                <label class="radio-inline" *ngFor="let option of field.options">
+                    <input type="radio"
+                           class=""
+                           name="{{field.name}}"
+                           value="{{option.value}}"
+                           [(ngModel)]="field.value"
+                           #name="ngModel"
+                           (change)="onChange($event)" />
+                    {{option.label}}
+                </label>
+            </span>
+            <span *ngSwitchCase="'select'" class="select-wrap">
+                <select class="form-control"
+                       name="{{field.name}}"
+                       [(ngModel)]="field.value"
+                       #name="ngModel"
+                        (change)="onChange($event)" >
+                    <option  *ngFor="let option of field.options" [ngValue]="option.value" >{{option.label}}</option>
+                </select>
+            </span>
+            <span *ngSwitchCase="'file'">
+                 <file-input [formApiField]="field" [fileOptions]="" [fileId]="field.value"  (fileChange)="setFile($event)"></file-input>
+                <input type="hidden" name="{{field.name}}" [(ngModel)]="field.value" #name="ngModel" />
+            </span>
+            <span *ngSwitchCase="'form'">
+                <select class="form-control"
+                        name="{{field.name}}"
+                        [(ngModel)]="field.value"
+                        #name="ngModel"
+                        (change)="onChange($event)" >
+                    <option  *ngFor="let option of formList" [ngValue]="option._id" >{{option.title}}</option>
+                </select>
+            </span>
+        </span>
+    </span>
+    <span *ngIf="showSubmit" class="form-group">
+        <button type="button" (click)="onSubmit($event)" class="form-control btn btn-warning">{{showSubmit}}</button>
+    </span>
+</div>

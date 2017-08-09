@@ -1,0 +1,40 @@
+<form name="form" (ngSubmit)="f.form.valid && editContent()" #f="ngForm" novalidate>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !name.valid }">
+        <label for="name"> Name</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="model.name" #name="ngModel" required />
+        <div *ngIf="f.submitted && !name.valid" class="help-block">Name is required</div>
+    </div>
+    <div class="form-group checkbox">
+        <label class="">
+            <input type="checkbox" name="userForm" [(ngModel)]="customForm.public" #name="ngModel" />
+            User Form
+        </label>
+    </div>
+    <div class="form-group" >
+        <label for="description"> Description</label>
+        <textarea class="form-control" name="description" [(ngModel)]="model.description" #description="ngModel"  ></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Custom Fields</label>
+        <formApi [formObject]="model" formEdit="true"  (formChange)="updateCustomFields($event)"></formApi>
+    </div>
+
+    <div class="form-group form-inline">
+        <label>Add Custom Field</label>
+        <formApi formId="5972b11bb527904f17549af8" showSubmit="Add Field"
+                 (formSubmit)="addCustomField($event)"
+                 (formChange)="readForm($event)"></formApi>
+       <span *ngIf="showFieldOptions">
+            <div *ngFor="let option of fieldOptions">{{option.value}}</div>
+            <formApi formId="59763f6cb527904f17552946"
+                     showSubmit="Add Option"
+                     (formSubmit)="addOption($event)"></formApi>
+       </span>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary pull-right">Save Content</button>
+    </div>
+</form>

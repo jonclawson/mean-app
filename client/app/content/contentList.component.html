@@ -1,0 +1,20 @@
+
+<table class="table striped">
+    <tr *ngFor="let content of contentList">
+        <td *ngIf="content">
+            <div >
+                <a [routerLink]="['/content/' + content._id]">{{content.name}}</a>
+                <div class="pull-right text-right">
+                    <a *ngIf="!contentForm" [routerLink]="'/content/edit/'+content._id" class="glyphicon glyphicon-pencil"></a>
+                    <span *ngIf="contentForm" (click)="editContent(content)" class="glyphicon glyphicon-pencil"></span>
+                    <a (click)="deleteContent(content._id)" class="glyphicon glyphicon-trash"></a>
+                </div>
+            </div>
+            <div >{{content.description}}</div>
+            <viewApi *ngIf="showFields && (contentForm!=content)" [view]="content" ></viewApi>
+            <formApi *ngIf="contentForm==content" [formObject]="contentForm" showSubmit="Save" (formSubmit)="saveContent($event)" ></formApi>
+        </td>
+    </tr>
+</table>
+
+<formApi *ngIf="contentForm && !contentForm.form" [formObject]="contentForm" showSubmit="Save" (formSubmit)="saveContent($event)" ></formApi>

@@ -6730,3 +6730,7 @@ a {
 .help-block {
   font-size: 12px;
 }
+.wrap {
+  width: 100%;
+  display: block;
+}

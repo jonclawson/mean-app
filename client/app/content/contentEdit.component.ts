@@ -25,7 +25,9 @@ export class ContentEditComponent implements OnInit {
         private formApiService: FormApiService,
         private alertService: AlertService,
          private route: ActivatedRoute,
-         ) { }
+         ) {
+            this.customForm = {};
+         }
 
     editContent() { console.log('editContent');
         this.loading = true;

@@ -1,0 +1,11 @@
+<table class="table striped">
+    <tr *ngFor="let user of users">
+        <file-input [fileOptions]="{width:50}" [fileId]="user.avatar"  (fileChange)="setAvatar($event)"></file-input>
+        <td> {{user.username}} </td>
+        <td>({{user.firstName}} {{user.lastName}})</td>
+        <td class="text-right">
+            <a [routerLink]="'/profile/'+user._id" class="glyphicon glyphicon-pencil"></a>
+            <a  (click)="deleteUser(user._id)" class="glyphicon glyphicon-trash"></a>
+        </td>
+    </tr>
+</table>

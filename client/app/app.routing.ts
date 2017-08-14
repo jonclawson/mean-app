@@ -1,6 +1,7 @@
 ﻿import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home/index';
+import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { ContentComponent } from './content/index';
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
     { path: 'content/edit/:id', component: ContentEditComponent },
     { path: 'content/:id', component: ContentComponent },
     { path: 'profile/:id', component: ProfileComponent },
+    { path: 'users', component: UsersComponent },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

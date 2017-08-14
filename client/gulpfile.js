@@ -26,7 +26,7 @@ var source = {
         ],
         tpl: 'app/**/*.html'
     },
-    styles:['styles/app.less'],
+    styles:['styles/less/app.less'],
     fonts: ['node_modules/bootstrap/fonts/**/*'],
 //    img: 'styles/img/**/*',
 };
@@ -108,7 +108,7 @@ gulp.task('clean', function () {
 gulp.task('watch', function(){
 //    gulp.watch(source.js.src, ['jshint','js']);
 //    gulp.watch(source.js.tpl, ['js']);
-    gulp.watch(['styles/**/*'], ['less']);
+    gulp.watch(['styles/less/**/*'], ['less']);
 //    gulp.watch([source.lang], ['copy-lang']);
 //    gulp.watch([source.external], ['copy-external']);
     //gulp.watch(['build/app.js','build/css/smartadmin-production.css', 'build/i18n/**/*'], ['livereload']);

@@ -11,6 +11,7 @@ import { AlertComponent, FormApiComponent, ViewApiComponent } from './_directive
 import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService, FormApiService } from './_services/index';
 import { HomeComponent } from './home/index';
+import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { ContentEditComponent } from './content/index';
@@ -21,6 +22,7 @@ import { CurrentUserComponent } from './_directives/currentUser.component';
 import { FileComponent } from './_directives/file.component';
 import { FileService } from './_services/file.service';
 import { ProfileComponent } from './profile/index';
+import { dropdownDirective } from './_directives/dropdown.directive';
 
 @NgModule({
     imports: [
@@ -43,6 +45,8 @@ import { ProfileComponent } from './profile/index';
         FileComponent,
         FormApiComponent,
         ViewApiComponent,
+        dropdownDirective,
+        UsersComponent,
     ],
     providers: [
         customHttpProvider,

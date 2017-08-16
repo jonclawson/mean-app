@@ -7,14 +7,16 @@ declare var $:any;
 @Injectable()
 export class ChartService {
     constructor() { }
-    drawChart(elementRef: ElementRef, type: string){
-        var chart = d3.select(elementRef.nativeElement).append('svg');
+    drawChart(elementRef: ElementRef, type: string, args: any){
+        var chart = d3.select(elementRef.nativeElement).html('').append('svg');
         var margin =  {top: 20, right: 20, bottom: 30, left: 40};
         var options = {
+            yLabel: args && args.yLabel? args.yLabel: '',
             margin: margin,
             width :  $(elementRef.nativeElement).outerWidth() - margin.left - margin.right,
-             height : $(elementRef.nativeElement).outerHeight() - margin.top - margin.bottom
-        }
+            height : $(elementRef.nativeElement).outerHeight() - margin.top - margin.bottom,
+            data: args && args.data? args.data: null;
+        };
         switch(type){
             case 'bar':
                 this.barChart(chart, options);
@@ -41,47 +43,39 @@ export class ChartService {
        var g = chart.append("g")
            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-       var data  =  [
-           {letter: 'A', frequency:.434254},
-           {letter:'B', frequency:.434454},
-           {letter:'C', frequency:.436454},
-           {letter:'D', frequency:.437454},
-           {letter:'E', frequency:.439454},
-           {letter:'F', frequency:.437454},
-           {letter:'G', frequency:.433454},
-           {letter:'H', frequency:.434554},
-           {letter:'I', frequency:.434454},
-           {letter:'J', frequency:.434554},
-           {letter:'K', frequency:.434454},
-           {letter:'L', frequency:.433454},
-          ];
+        var yLabel = options.yLabel;
 
-         x.domain(data.map(function(d:any) { return d.letter; }));
-         y.domain([0, d3.max(data, function(d:any) { return d.frequency; })]);
+        if(options && options.data){
+            let data = options.data;
 
-         g.append("g")
-             .attr("class", "axis axis--x")
-             .attr("transform", "translate(0," + height + ")")
-             .call(d3.axisBottom(x));
+             x.domain(data.map(function(d:any) { return d.label; }));
+             y.domain([0, d3.max(data, function(d:any) { return d.value; })]);
 
-         g.append("g")
-             .attr("class", "axis axis--y")
-             .call(d3.axisLeft(y).ticks(10, "%"))
-           .append("text")
-             .attr("transform", "rotate(-90)")
-             .attr("y", 6)
-             .attr("dy", "0.71em")
-             .attr("text-anchor", "end")
-             .text("Frequency");
+             g.append("g")
+                 .attr("class", "axis axis--x")
+                 .attr("transform", "translate(0," + height + ")")
+                 .call(d3.axisBottom(x));
 
-         g.selectAll(".bar")
-           .data(data)
-           .enter().append("rect")
-             .attr("class", "bar")
-             .attr("x", function(d:any) { return x(d.letter); })
-             .attr("y", function(d:any) { return y(d.frequency); })
-             .attr("width", x.bandwidth())
-             .attr("height", function(d:any) { return height - y(d.frequency); });
+             g.append("g")
+                 .attr("class", "axis axis--y")
+                 .call(d3.axisLeft(y).ticks(10, ""))
+               .append("text")
+                 .attr("transform", "rotate(-90)")
+                 .attr("y", 6)
+                 .attr("dy", "0.71em")
+                 .attr("text-anchor", "end")
+                 .text(yLabel);
+
+             g.selectAll(".bar")
+               .data(data)
+               .enter().append("rect")
+                 .attr("class", "bar")
+                 .attr("x", function(d:any) { return x(d.label); })
+                 .attr("y", function(d:any) { return y(d.value); })
+                 .attr("width", x.bandwidth())
+                 .attr("height", function(d:any) { return height - y(d.value); });
+        }
+
     }
     lineChart(chart:any, options:any){
         var g = chart.append("g").attr("transform", "translate(" + options.margin.left + "," + options.margin.top + ")");
@@ -97,8 +91,7 @@ export class ChartService {
             .x(function(d:any) { return x(d.date); })
             .y(function(d:any) { return y(d.temperature); });
 
-//        d3.tsv("data.tsv", type, function(error, data) {
-//          if (error) throw error;
+
          var data = [
             {date: 20114001, 'CA': 14.5, 'NY': 31.4, 'IN': 22.5},
             {date: 20112001, 'CA': 42.5, 'NY': 32.4, 'IN': 32.5},
@@ -177,13 +170,7 @@ export class ChartService {
               .attr("dy", "0.35em")
               .style("font", "10px sans-serif")
               .text(function(d:any) { return d.id; });
-        //});
 
-//        function type(d:any, _:any, columns:any) {
-//          d.date = parseTime(d.date);
-//          for (var i = 1, n = columns.length, c; i < n; ++i) d[c = columns[i]] = +d[c];
-//          return d;
-//        }
     }
     pieChart(chart:any, options:any){
         var radius = Math.min(options.width, options.height) / 2;
@@ -203,11 +190,7 @@ export class ChartService {
         .outerRadius(radius - 40)
         .innerRadius(radius - 40);
 
-//        d3.csv("data.csv", function(d) {
-//        d.population = +d.population;
-//        return d;
-//        }, function(error, data) {
-//        if (error) throw error;
+
         var data = [
             {age: 1-5 , population: 552704659},
             {age: 5-25 , population: 452704659},
@@ -227,7 +210,7 @@ export class ChartService {
           .attr("transform", function(d:any) { return "translate(" + label.centroid(d) + ")"; })
           .attr("dy", "0.35em")
           .text(function(d:any) { return d.data.age; });
-        //});
+
 
     }
     scatterChart(chart:any, options:any){
@@ -251,25 +234,7 @@ export class ChartService {
         .attr('height', options.height)
         .attr('class', 'main')
 
-        // draw the x axis
-//        var xAxis = d3.svg.axis()
-//        .scale(x)
-//        .orient('bottom');
 
-//        main.append('g')
-//        .attr('transform', 'translate(0,' + options.height + ')')
-//        .attr('class', 'main axis date')
-//        .call(xAxis);
-//
-//        // draw the y axis
-//        var yAxis = d3.svg.axis()
-//        .scale(y)
-//        .orient('left');
-//
-//        main.append('g')
-//        .attr('transform', 'translate(0,0)')
-//        .attr('class', 'main axis date')
-//        .call(yAxis);
 
 
           main.append("g")

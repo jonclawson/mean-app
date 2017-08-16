@@ -11,12 +11,13 @@ export class ChartDirective implements OnChanges {
 
     elementRef: ElementRef;
     @Input() type: string;
+    @Input() options: any;
     constructor(elementRef: ElementRef, private chartService: ChartService) {
         this.elementRef = elementRef;
     }
 
     ngOnChanges(){
-        this.chartService.drawChart(this.elementRef, this.type);
+        this.chartService.drawChart(this.elementRef, this.type, this.options);
     }
 
 }

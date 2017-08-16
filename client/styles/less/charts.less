@@ -6,9 +6,7 @@
   fill: brown;
 }
 
-.axis--x path {
-  display: none;
-}
+
 
 chart,
 .chart,
@@ -18,9 +16,6 @@ chart,
     min-height: 300px;
 }
 
-.axis--x path {
-  display: none;
-}
 
 .line {
   fill: none;
@@ -29,7 +24,10 @@ chart,
 }
 
 .chart {
-
+    svg{
+        overflow: visible;
+    }
+    margin: 0 0 20px 0;
 }
 
 .main text {
@@ -37,11 +35,22 @@ chart,
 }
 
 .axis line, .axis path {
-    shape-rendering: crispEdges;
     stroke: black;
     fill: none;
 }
 
 circle {
     fill: steelblue;
+}
+
+.bar.chart{
+    svg{
+        overflow: visible;
+    }
+    .axis.axis--x{
+        text{
+            transform: rotate(30deg) translate(0px, 20px);
+            transform: ;
+        }
+    }
 }

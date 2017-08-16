@@ -6730,9 +6730,6 @@ button.close {
 .bar:hover {
   fill: brown;
 }
-.axis--x path {
-  display: none;
-}
 chart,
 .chart,
 .chart svg {
@@ -6740,25 +6737,34 @@ chart,
   width: 100%;
   min-height: 300px;
 }
-.axis--x path {
-  display: none;
-}
 .line {
   fill: none;
   stroke: steelblue;
   stroke-width: 1.5px;
+}
+.chart {
+  margin: 0 0 20px 0;
+}
+.chart svg {
+  overflow: visible;
 }
 .main text {
   font: 10px sans-serif;
 }
 .axis line,
 .axis path {
-  shape-rendering: crispEdges;
   stroke: black;
   fill: none;
 }
 circle {
   fill: steelblue;
+}
+.bar.chart svg {
+  overflow: visible;
+}
+.bar.chart .axis.axis--x text {
+  transform: rotate(30deg) translate(0px, 20px);
+  transform: ;
 }
 a {
   cursor: pointer;

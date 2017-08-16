@@ -17,7 +17,7 @@ export class ContentEditComponent implements OnInit {
     fieldOptions: any = [];
     loading = false;
     showFieldOptions: boolean;
-    customForm: Form;
+    customForm: any;
 
     constructor(
         private router: Router,

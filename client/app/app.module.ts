@@ -23,6 +23,8 @@ import { FileComponent } from './_directives/file.component';
 import { FileService } from './_services/file.service';
 import { ProfileComponent } from './profile/index';
 import { dropdownDirective } from './_directives/dropdown.directive';
+import { ChartDirective } from './_directives/chart.directive';
+import { ChartService } from './_services/chart.service';
 
 @NgModule({
     imports: [
@@ -47,6 +49,7 @@ import { dropdownDirective } from './_directives/dropdown.directive';
         ViewApiComponent,
         dropdownDirective,
         UsersComponent,
+        ChartDirective,
     ],
     providers: [
         customHttpProvider,
@@ -56,7 +59,8 @@ import { dropdownDirective } from './_directives/dropdown.directive';
         UserService,
         ContentService,
         FileService,
-        FormApiService
+        FormApiService,
+        ChartService,
     ],
     bootstrap: [AppComponent]
 })

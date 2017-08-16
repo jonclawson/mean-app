@@ -13,6 +13,7 @@ import { ContentService } from '../content/content.service';
 export class HomeComponent implements OnInit {
     users: [];
     barChartOptions: {};
+    pieChartOptions: {};
     constructor(private userService: UserService, private contentService: ContentService) {
 
     }
@@ -24,7 +25,7 @@ export class HomeComponent implements OnInit {
             let userData = [];
             this.users.forEach(user=>{
                 userData.push({
-                    label: user.firstName + ' ' + user.lastName,
+                    label: user.firstName ,
                     value: user.content? user.content.length: 0
                 });
             });
@@ -33,6 +34,9 @@ export class HomeComponent implements OnInit {
                 yLabel: 'Content',
                 data: userData
             };
+            this.pieChartOptions = {
+                data: userData
+            }
         });
         var content = this.contentService.getAll();
 

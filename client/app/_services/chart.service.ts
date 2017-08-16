@@ -58,7 +58,7 @@ export class ChartService {
 
              g.append("g")
                  .attr("class", "axis axis--y")
-                 .call(d3.axisLeft(y).ticks(10, ""))
+                 .call(d3.axisLeft(y).ticks())
                .append("text")
                  .attr("transform", "rotate(-90)")
                  .attr("y", 6)
@@ -73,7 +73,36 @@ export class ChartService {
                  .attr("x", function(d:any) { return x(d.label); })
                  .attr("y", function(d:any) { return y(d.value); })
                  .attr("width", x.bandwidth())
-                 .attr("height", function(d:any) { return height - y(d.value); });
+                 .attr("height", function(d:any) { return height - y(d.value); })
+                 .on("mouseover", function(d:any) {
+//                     var pos = d3.mouse(this);
+//                     //tooltip.text(d.label + " " + d.value);
+//                     //d3.select(this).style('stroke-width', "2.5");
+//                     return tooltip.style("visibility", "visible");
+                 })
+                 .on("mousemove", function() {
+//                     var X = d3.event.pageX ;//- chart.offset().left;
+//                     var Y = d3.event.pageY ;//- chart.offset().top;
+//                     return tooltip.style("top", (Y - 10) + "px").style("left", (X + 10) + "px");
+                 })
+                 .on("mouseout", function() {
+//                   // d3.select(this).style('stroke-width', "1.5");
+//                    return tooltip.style("visibility", "hidden");
+                 });
+
+//                  let tooltip = g.selectAll(".bar").data(data)
+//                     .enter()
+//                     .append("div")
+//                     .attr("class", "tooltip-box")
+//                     .style("position", "absolute")
+//                     .style("z-index", "100")
+//                     .style("visibility", "hidden")
+//                     .style("font-weight", "bold")
+//                     .style("background-color", "white")
+//                     .style("padding", "5px 10px")
+//                     .text(function(d:any) {
+//                         return (d.label + " " + d.value)
+//                     });
         }
 
     }
@@ -180,7 +209,7 @@ export class ChartService {
 
         var pie = d3.pie()
         .sort(null)
-        .value(function(d:any) { return d.population; });
+        .value(function(d:any) { return d.value; });
 
         var path = d3.arc()
         .outerRadius(radius - 10)
@@ -191,25 +220,30 @@ export class ChartService {
         .innerRadius(radius - 40);
 
 
-        var data = [
-            {age: 1-5 , population: 552704659},
-            {age: 5-25 , population: 452704659},
-            {age: 25-35 , population: 352704659},
-            {age: 35-65 , population: 252704659},
-        ];
-        var arc = g.selectAll(".arc")
-        .data(pie(data))
-        .enter().append("g")
-          .attr("class", "arc");
+//        var data = [
+//            {label: 1-5 , value: 552704659},
+//            {label: 5-25 , value: 452704659},
+//            {label: 25-35 , value: 352704659},
+//            {label: 35-65 , value: 252704659},
+//        ];
 
-        arc.append("path")
-          .attr("d", path)
-          .attr("fill", function(d:any) { return color(d.data.age); });
+        if( options && options.data){ console.log('pieData', options.data);
+            var data = options.data;
+            var arc = g.selectAll(".arc")
+            .data(pie(data))
+            .enter().append("g")
+              .attr("class", "arc");
 
-        arc.append("text")
-          .attr("transform", function(d:any) { return "translate(" + label.centroid(d) + ")"; })
-          .attr("dy", "0.35em")
-          .text(function(d:any) { return d.data.age; });
+            arc.append("path")
+              .attr("d", path)
+              .attr("fill", function(d:any) { return color(d.data.label); });
+
+            arc.append("text")
+              .attr("transform", function(d:any) { return "translate(" + label.centroid(d) + ")"; })
+              .attr("dy", "0.35em")
+              .text(function(d:any) { return d.data.label; });
+        }
+
 
 
     }

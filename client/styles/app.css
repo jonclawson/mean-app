@@ -6762,10 +6762,6 @@ circle {
 .bar.chart svg {
   overflow: visible;
 }
-.bar.chart .axis.axis--x text {
-  transform: rotate(30deg) translate(0px, 20px);
-  transform: ;
-}
 a {
   cursor: pointer;
 }

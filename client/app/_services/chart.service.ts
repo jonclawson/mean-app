@@ -15,7 +15,7 @@ export class ChartService {
             margin: margin,
             width :  $(elementRef.nativeElement).outerWidth() - margin.left - margin.right,
             height : $(elementRef.nativeElement).outerHeight() - margin.top - margin.bottom,
-            data: args && args.data? args.data: null;
+            data: args && args.data? args.data: null,
         };
         switch(type){
             case 'bar':
@@ -117,55 +117,53 @@ export class ChartService {
 
         var line = d3.line()
             .curve(d3.curveBasis)
-            .x(function(d:any) { return x(d.date); })
-            .y(function(d:any) { return y(d.temperature); });
+            .x(function(d:any) { return x(d.x_value); })
+            .y(function(d:any) { return y(d.y_value); });
 
 
          var data = [
-            {date: 20114001, 'CA': 14.5, 'NY': 31.4, 'IN': 22.5},
-            {date: 20112001, 'CA': 42.5, 'NY': 32.4, 'IN': 32.5},
-            {date: 20113001, 'CA': 41.5, 'NY': 31.4, 'IN': 24.5},
-            {date: 20110401, 'CA': 24.5, 'NY': 32.4, 'IN': 52.5}
-         ]
-         var cities = [
             {
-                id: 'CA',
+                label: 'CA',
                 values: [
-                    {date: 20114001, temperature: 14.5},
-                    {date: 20112001, temperature: 42.5},
-                    {date: 20113001, temperature: 41.5},
-                    {date: 20110401, temperature: 24.5}
+                    {x_value: 20114001, y_value: 14.5},
+                    {x_value: 20112001, y_value: 42.5},
+                    {x_value: 20113001, y_value: 41.5},
+                    {x_value: 20110401, y_value: 24.5}
                 ]
             },
             {
-                id: 'NY',
+                label: 'NY',
                 values: [
-                    {date: 20114001, temperature: 34.5},
-                    {date: 20112001, temperature: 43.5},
-                    {date: 20113001, temperature: 31.5},
-                    {date: 20110401, temperature: 22.5}
+                    {x_value: 20114001, y_value: 34.5},
+                    {x_value: 20112001, y_value: 43.5},
+                    {x_value: 20113001, y_value: 31.5},
+                    {x_value: 20110401, y_value: 22.5}
                 ]
             },
             {
-                id: 'MI',
+                label: 'MI',
                 values: [
-                    {date: 20114001, temperature: 24.5},
-                    {date: 20112001, temperature: 32.5},
-                    {date: 20113001, temperature: 31.5},
-                    {date: 20110401, temperature: 44.5}
+                    {x_value: 20114001, y_value: 24.5},
+                    {x_value: 20112001, y_value: 32.5},
+                    {x_value: 20113001, y_value: 31.5},
+                    {x_value: 20110401, y_value: 44.5}
                 ]
             },
          ]
+        let data = options.data
+        let x_data = []
+        data.forEach(d => {
+           x_data = x_data.concat(d.values)
+        })
 
-
-          x.domain(d3.extent(data, function(d:any) { return d.date; }));
+          x.domain(d3.extent(x_data, function(d:any) { return d.x_value; }));
 
           y.domain([
-            d3.min(cities, function(c:any) { return d3.min(c.values, function(d:any) { return d.temperature; }); }),
-            d3.max(cities, function(c:any) { return d3.max(c.values, function(d:any) { return d.temperature; }); })
+            d3.min(data, function(c:any) { return d3.min(c.values, function(d:any) { return d.y_value; }); }),
+            d3.max(data, function(c:any) { return d3.max(c.values, function(d:any) { return d.y_value; }); })
           ]);
 
-          z.domain(cities.map(function(c:any) { return c.id; }));
+          z.domain(data.map(function(c:any) { return c.label; }));
 
           g.append("g")
               .attr("class", "axis axis--x")
@@ -180,25 +178,25 @@ export class ChartService {
               .attr("y", 6)
               .attr("dy", "0.71em")
               .attr("fill", "#000")
-              .text("Temperature, ºF");
+              .text("y_value, ºF");
 
           var city = g.selectAll(".city")
-            .data(cities)
+            .data(data)
             .enter().append("g")
               .attr("class", "city");
 
           city.append("path")
               .attr("class", "line")
               .attr("d", function(d:any) { return line(d.values); })
-              .style("stroke", function(d:any) { return z(d.id); });
+              .style("stroke", function(d:any) { return z(d.label); });
 
           city.append("text")
-              .datum(function(d:any) { return {id: d.id, value: d.values[d.values.length - 1]}; })
-              .attr("transform", function(d:any) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+              .datum(function(d:any) { return {id: d.label, value: d.values[d.values.length - 1]}; })
+              .attr("transform", function(d:any) { return "translate(" + x(d.value.x_value) + "," + y(d.value.y_value) + ")"; })
               .attr("x", 3)
               .attr("dy", "0.35em")
               .style("font", "10px sans-serif")
-              .text(function(d:any) { return d.id; });
+              .text(function(d:any) { return d.label; });
 
     }
     pieChart(chart:any, options:any){

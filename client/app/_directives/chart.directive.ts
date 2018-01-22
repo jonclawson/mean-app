@@ -16,7 +16,7 @@ export class ChartDirective implements OnChanges {
         this.elementRef = elementRef;
     }
 
-    ngOnChanges(){
+    ngOnChanges(){ console.log('chart directive')
         this.chartService.drawChart(this.elementRef, this.type, this.options);
     }
 

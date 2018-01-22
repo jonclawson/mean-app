@@ -11,9 +11,10 @@ import { ContentService } from '../content/content.service';
 })
 
 export class HomeComponent implements OnInit {
-    users: [];
-    barChartOptions: {};
-    pieChartOptions: {};
+    users:  any = [];
+    userData:  any = [];
+    barChartOptions: any = {};
+    pieChartOptions: any = {};
     constructor(private userService: UserService, private contentService: ContentService) {
 
     }
@@ -21,21 +22,21 @@ export class HomeComponent implements OnInit {
     ngOnInit(){
         this.userService.getAll().subscribe(users => {
             this.users = users;
-            console.log('users', this.users)
-            let userData = [];
-            this.users.forEach(user=>{
-                userData.push({
-                    label: user.firstName ,
+            //console.log('users', this.users)
+           // let userData = [];
+            this.users.forEach(user => {
+                this.userData.push({
+                    label: user.firstName,
                     value: user.content? user.content.length: 0
-                });
-            });
-            console.log('userData', userData);
+                })
+            })
+            console.log('userData', this.userData);
             this.barChartOptions = {
                 yLabel: 'Content',
-                data: userData
-            };
-            this.pieChartOptions = {
-                data: userData
+                data: this.userData
+            }
+           this.pieChartOptions = {
+                data: this.userData
             }
         });
         var content = this.contentService.getAll();

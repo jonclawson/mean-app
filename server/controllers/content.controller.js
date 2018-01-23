@@ -24,7 +24,7 @@ function addContent(req, res) {
 }
 
 function listContent(req, res) {
-    contentService.getAll()
+    contentService.getAll(req.query)
         .then(function (users) {
             res.send(users);
         })

@@ -4,4 +4,6 @@ export class Content {
     description: string;
     fields: Array<any>;
     form: string;
+    createdBy: string;
+    updatedBy: string;
 }

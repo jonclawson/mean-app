@@ -20,10 +20,10 @@ module.exports = service;
 
 
 
-function getAll() {
+function getAll(query) {
     var deferred = Q.defer();
 
-    db.contents.find().toArray(function (err, contents) {
+    db.contents.find(query).toArray(function (err, contents) {
         if (err) deferred.reject(err.name + ': ' + err.message);
 
         // return contents (without hashed passwords)
@@ -73,7 +73,8 @@ function create(contentParam) {
 //        });
 
     function createContent() {
-
+        contentParam.createdAt = new Date();
+        contentParam.updatedAt = new Date();
         db.contents.insert(
             contentParam,
             function (err, doc) {
@@ -119,6 +120,8 @@ function update(_id, contentParam) {
             description: contentParam.description,
             fields: contentParam.fields,
             form: contentParam.form,
+            updatedBy: contentParam.updatedBy,
+            updatedAt: new Date(),
         };
 
 

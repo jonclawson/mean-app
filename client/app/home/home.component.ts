@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
     userData:  any = [];
     barChartOptions: any = {};
     pieChartOptions: any = {};
+    lineChartOptions: any = {};
     constructor(private userService: UserService, private contentService: ContentService) {
 
     }
@@ -24,10 +25,13 @@ export class HomeComponent implements OnInit {
             this.users = users;
             //console.log('users', this.users)
            // let userData = [];
-            this.users.forEach(user => {
+            this.users.forEach((user: User) => {
                 this.userData.push({
                     label: user.firstName,
                     value: user.content? user.content.length: 0
+                })
+                this.contentService.search({updatedBy: user._id}).subscribe(contents => {
+
                 })
             })
             console.log('userData', this.userData);

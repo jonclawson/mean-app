@@ -121,42 +121,42 @@ export class ChartService {
             .y(function(d:any) { return y(d.y_value); });
 
 
-         var data = [
-            {
-                label: 'CA',
-                values: [
-                    {x_value: 20114001, y_value: 14.5},
-                    {x_value: 20112001, y_value: 42.5},
-                    {x_value: 20113001, y_value: 41.5},
-                    {x_value: 20110401, y_value: 24.5}
-                ]
-            },
-            {
-                label: 'NY',
-                values: [
-                    {x_value: 20114001, y_value: 34.5},
-                    {x_value: 20112001, y_value: 43.5},
-                    {x_value: 20113001, y_value: 31.5},
-                    {x_value: 20110401, y_value: 22.5}
-                ]
-            },
-            {
-                label: 'MI',
-                values: [
-                    {x_value: 20114001, y_value: 24.5},
-                    {x_value: 20112001, y_value: 32.5},
-                    {x_value: 20113001, y_value: 31.5},
-                    {x_value: 20110401, y_value: 44.5}
-                ]
-            },
-         ]
+//         let data = [
+//            {
+//                label: 'CA',
+//                values: [
+//                    {x_value: 20114001, y_value: 14.5},
+//                    {x_value: 20112001, y_value: 42.5},
+//                    {x_value: 20113001, y_value: 41.5},
+//                    {x_value: 20110401, y_value: 24.5}
+//                ]
+//            },
+//            {
+//                label: 'NY',
+//                values: [
+//                    {x_value: 20114001, y_value: 34.5},
+//                    {x_value: 20112001, y_value: 43.5},
+//                    {x_value: 20113001, y_value: 31.5},
+//                    {x_value: 20110401, y_value: 22.5}
+//                ]
+//            },
+//            {
+//                label: 'MI',
+//                values: [
+//                    {x_value: 20114001, y_value: 24.5},
+//                    {x_value: 20112001, y_value: 32.5},
+//                    {x_value: 20113001, y_value: 31.5},
+//                    {x_value: 20110401, y_value: 44.5}
+//                ]
+//            },
+//         ]
         let data = options.data
-        let x_data = []
-        data.forEach(d => {
-           x_data = x_data.concat(d.values)
+       options.x_data = []
+        data.forEach((d:any) => {
+          options.x_data = options.x_data.concat(d.values)
         })
 
-          x.domain(d3.extent(x_data, function(d:any) { return d.x_value; }));
+          x.domain(d3.extent(options.x_data, function(d:any) { return d.x_value; }));
 
           y.domain([
             d3.min(data, function(c:any) { return d3.min(c.values, function(d:any) { return d.y_value; }); }),

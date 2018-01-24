@@ -13,6 +13,7 @@ import { ContentService } from '../content/content.service';
 export class HomeComponent implements OnInit {
     users:  any = [];
     userData:  any = [];
+    promiseUserData: any = [];
     barChartOptions: any = {};
     pieChartOptions: any = {};
     lineChartOptions: any = {};
@@ -26,26 +27,46 @@ export class HomeComponent implements OnInit {
             //console.log('users', this.users)
            // let userData = [];
             this.users.forEach((user: User) => {
-                this.userData.push({
-                    label: user.firstName,
-                    value: user.content? user.content.length: 0
+                let data = {
+                               label: user.firstName,
+                               value: user.content? user.content.length: 0,
+                               values: [0],
+                           }
+                let promiseContent = new Promise((resolve, reject) => {
+                       this.contentService.search({updatedBy: user._id}).subscribe(contents => {
+                            data.values = contents.map((content: Content) => {
+                                if(content.updatedAt) {
+                                    return {
+                                        x_value: new Date(content.updatedAt).getTime(),
+                                        y_value: content.description.length,
+                                    }
+                                }
+                            })
+                            resolve(data);
+                        }, error => {
+                            resolve(data);
+                        })
                 })
-                this.contentService.search({updatedBy: user._id}).subscribe(contents => {
+                promiseContent.then( data => {
+                    this.userData.push(data)
+                })
+                this.promiseUserData.push(promiseContent);
 
-                })
             })
-            console.log('userData', this.userData);
-            this.barChartOptions = {
-                yLabel: 'Content',
-                data: this.userData
-            }
-           this.pieChartOptions = {
-                data: this.userData
-            }
+            Promise.all(this.promiseUserData).then( success => {
+                console.log('userData', this.userData);
+                this.barChartOptions = {
+                    yLabel: 'Content',
+                    data: this.userData
+                }
+                this.pieChartOptions = {
+                    data: this.userData
+                }
+                this.lineChartOptions = {
+                    data: this.userData,
+                }
+            })
         });
-        var content = this.contentService.getAll();
-
-
    }
 
 }

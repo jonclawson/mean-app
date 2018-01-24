@@ -151,7 +151,7 @@ export class ChartService {
 //            },
 //         ]
         let data = options.data
-       options.x_data = []
+        options.x_data = []
         data.forEach((d:any) => {
           options.x_data = options.x_data.concat(d.values)
         })

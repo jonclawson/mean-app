@@ -9,14 +9,23 @@
 
 ### Start Server:
 
+Install and run MongoDB
+https://docs.mongodb.com/manual/administration/install-community/
+
 You will need to install Imagemagick for the thumbnailing to work
-
 https://www.imagemagick.org/script/download.php
-
 
 - cd server
 - npm install
 - node server.js
+
+Custom Content: 
+The custom field feature on edit content form requires data in the database.
+There are 2 files that need to be inserted into the 'forms' collection:
+customFieldForm.json
+addOptionFrom.json
+
+the IDs of these forms must match the IDs hard coded in contentForm.component.html
 
 ## Features:
 

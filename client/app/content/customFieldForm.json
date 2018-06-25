@@ -1,0 +1,55 @@
+{
+    "_id" : ObjectId("5972b11bb527904f17549af8"),
+    "name" : "Custom Field",
+    "action" : "",
+    "method" : "POST",
+    "enctype" : "multipart/form-data",
+    "fields" : [ 
+        {
+            "name" : "title",
+            "type" : "text",
+            "value" : "",
+            "title" : "Title"
+        }, 
+        {
+            "name" : "type",
+            "title" : "Type",
+            "type" : "select",
+            "value" : "text",
+            "options" : [ 
+                {
+                    "value" : "text",
+                    "label" : "Text"
+                }, 
+                {
+                    "value" : "textarea",
+                    "label" : "Text Area"
+                }, 
+                {
+                    "value" : "select",
+                    "label" : "Dropdown"
+                }, 
+                {
+                    "value" : "file",
+                    "label" : "File"
+                }, 
+                {
+                    "value" : "number",
+                    "label" : "Number"
+                }, 
+                {
+                    "value" : "checkbox",
+                    "label" : "Checkbox"
+                }, 
+                {
+                    "value" : "radio",
+                    "label" : "Options"
+                }, 
+                {
+                    "value" : "form",
+                    "label" : "User Form"
+                }
+            ]
+        }
+    ]
+}

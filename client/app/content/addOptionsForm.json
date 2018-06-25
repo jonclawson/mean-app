@@ -1,0 +1,12 @@
+{
+    "_id" : ObjectId("59763f6cb527904f17552946"),
+    "name" : "Add Options",
+    "fields" : [ 
+        {
+            "name" : "optionValue1",
+            "title" : "Option Value",
+            "value" : "",
+            "type" : "text"
+        }
+    ]
+}

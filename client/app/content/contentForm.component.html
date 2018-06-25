@@ -28,9 +28,9 @@
                  (formChange)="readForm($event)"></formApi>
        <span *ngIf="showFieldOptions">
             <div *ngFor="let option of fieldOptions">{{option.value}}</div>
-            <!--<formApi formId="59763f6cb527904f17552946"-->
-                     <!--showSubmit="Add Option"-->
-                     <!--(formSubmit)="addOption($event)"></formApi>-->
+            <formApi formId="59763f6cb527904f17552946"
+                     showSubmit="Add Option"
+                     (formSubmit)="addOption($event)"></formApi>
        </span>
     </div>
 

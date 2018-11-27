@@ -28,7 +28,7 @@
     "systemjs": "^0.19.47",
     "zone.js": "^0.8.5",
     "bootstrap": "3.3.6",
-    "d3":"4.10.0",
+    "d3": "4.10.0",
     "jquery": "2"
   },
   "devDependencies": {
@@ -43,7 +43,6 @@
     "gulp-less": "*",
     "gulp-uglify": "*",
     "gulp-sourcemaps": "*",
-    "event-stream": "*",
     "gulp-clean-css": "*"
   }
 }

@@ -1,4 +1,6 @@
-var es = require('event-stream');
+// TODO find alternative to event-stream becuase it has been compromised!
+// https://github.com/dominictarr/event-stream/issues/115
+// var es = require('event-stream');
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -80,16 +82,16 @@ gulp.task('js', function(){
         .on('error', swallowError));
 
 
-    return es.merge(gulp.src(source.js.src), config, getTemplateStream())
-        .pipe(gulpif(isEnv('dev'), sourcemaps.init()))
-        .pipe(concat('app.js'))
-        //.pipe(ngAnnotate())
-        .on('error', swallowError)
-        .pipe(gulpif(!isEnv('dev'),uglify({ mangle: false })))
-        .pipe(gulpif(isEnv('dev'),sourcemaps.write('.', {
-            sourceRoot: '/app/'
-        })))
-        .pipe(gulp.dest(destinations.js));
+    // return es.merge(gulp.src(source.js.src), config, getTemplateStream())
+    //     .pipe(gulpif(isEnv('dev'), sourcemaps.init()))
+    //     .pipe(concat('app.js'))
+    //     //.pipe(ngAnnotate())
+    //     .on('error', swallowError)
+    //     .pipe(gulpif(!isEnv('dev'),uglify({ mangle: false })))
+    //     .pipe(gulpif(isEnv('dev'),sourcemaps.write('.', {
+    //         sourceRoot: '/app/'
+    //     })))
+    //     .pipe(gulp.dest(destinations.js));
 });
 
 
@@ -122,4 +124,3 @@ function swallowError(error){
     console.log(error.toString());
     this.emit('end')
 };
-
